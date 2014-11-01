@@ -1,0 +1,160 @@
+This is ptrash.info, produced by makeinfo version 4.12 from ptrash.texi.
+
+This file documents the `ptrash-1.0.1' command for moving files to
+trash directory under $HOME.
+
+     Copyright (C) 2008 2009 Prasad J Pandit
+
+     Permission is granted to make and distribute verbatim copies of
+this manual provided the copyright notice and this permission notice
+are preserved on all copies
+
+INFO-DIR-SECTION Individual utilities
+START-INFO-DIR-ENTRY
+* ptrash: (ptrash).                             Move file(s) to ~/.trash.
+END-INFO-DIR-ENTRY
+
+
+File: ptrash.info,  Node: Top,  Next: Overview,  Prev: (dir),  Up: (dir)
+
+ptrash-1.0.1
+************
+
+     This file documents the `ptrash-1.0.1' command for moving files to
+trash directory under $HOME.
+
+     Copyright (C) 2008 2009 Prasad J Pandit
+
+     Permission is granted to make and distribute verbatim copies of
+this manual provided the copyright notice and this permission notice
+are preserved on all copies
+
+* Menu:
+
+* Overview        ::	An introduction to ptrash
+* Invoking ptrash ::	How to use ptrash
+* Problems        ::	Reporting bugs
+
+
+File: ptrash.info,  Node: Overview,  Next: Invoking ptrash,  Prev: Top,  Up: Top
+
+1 Overview
+**********
+
+1.1 Introduction
+================
+
+     `ptrash' is a console based simple utility to move named file(s) to
+~/.trash directory. In case the ~/.trash directory is non-existent,
+`ptrash' creates it for you and then moves the file(s) to this
+directory.  By default `ptrash' runs in non-interactive mode. That
+means it does not ask user if she is sure to move a file to ~/.trash
+even when the named file already exists in ~/.trash and proceeds with
+overwriting that file.
+
+1.2 How it evolved
+==================
+
+     `ptrash' is a console based simple application. I took upon
+writing this, when I deleted(using rm) few files and found myself badly
+desperate to retrieve them back, but just could not do so.
+
+     So, I wrote a program named `ptrash' which moved regular files from
+current directory to ~/.trash, that's all. Then I thought `ptrash'
+should do some more things such as movement of whole directory, restore
+an already moved file from ~/.trash to its original location, etc. And
+now this version of `ptrash' does all of these tasks; plus, facilitates
+moving of block and character special device files and fifo files as
+well.
+
+
+File: ptrash.info,  Node: Invoking ptrash,  Next: Problems,  Prev: Overview,  Up: Top
+
+2 Invoking ptrash
+*****************
+
+     `ptrash' can be invoked by a simple command as
+
+     Usage: ptrash [OPTIONS] file-name-1 [file-name-2 ...]
+
+     As of now `ptrash' supports the following set of options
+
+`-d'
+`--delete'
+     delete named file(s) from ~/.trash. Do not use this option with -r
+     or -restore option
+
+`-i'
+     Enables an interactive mode of operation; thus letting user to
+     decide if she want to overwrite OR delete an existing file or not.
+
+`-r'
+`--restore'
+     Restore a file from trash to its original location. Do not use
+     this option with -d or -delete option above
+
+`-h'
+`--help'
+     shows small help on the console
+
+`-v'
+`--verbose'
+     Turn on verbose operation mode
+
+`-V'
+`--version'
+     shows version information
+
+2.1 Example:
+============
+
+`$ ptrash readme.txt'
+     move the file `readme.txt' to ~/.trash directory
+
+`$ ptrash -v readme.txt install report.doc tar1.tgz'
+     This moves all the named files to ~/.trash directory with verbose
+     mode of operation enabled, that causes ptrash to show file name
+     and progress bar as it is moved
+
+`$ ptrash -r readme.txt tar1.tgz'
+     This will cause ptrash to restore files `readme.txt' and
+     `tar1.tgz' to their respective original location.
+
+`$ ptrash -d install.txt minutes.txt'
+     This will delete `install.txt' and `minutes.txt' from trash
+     directory.
+
+`$ ptrash -drv todo.txt'
+     This'll result in an error message, as option -d and -r are not
+     ment to be used together.
+
+
+File: ptrash.info,  Node: Problems,  Prev: Invoking ptrash,  Up: Top
+
+3 Problems
+**********
+
+3.1 Reporting bugs
+==================
+
+     If you think you have found a bug in `ptrash-1.0.1', send an email
+to <pj.pandit AT yahoo.co.in>. While doing so please include
+`ptrash-1.0.1' string in the subject line, and precisely describe about
+the behaviour of `ptrash-1.0.1'.
+
+3.2 Note
+========
+
+     `ptrash-1.0.1' does not moves symbolic links to/from ~/.trash.
+
+     Do not use option -d and -r together.
+
+
+
+Tag Table:
+Node: Top537
+Node: Overview1087
+Node: Invoking ptrash2330
+Node: Problems3914
+
+End Tag Table

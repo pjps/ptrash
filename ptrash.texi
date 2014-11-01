@@ -1,0 +1,138 @@
+\input texinfo @c -*-texinfo-*-
+@c %**start of header
+@setfilename ptrash.info
+@settitle info ptrash
+@setchapternewpage odd
+@paragraphindent 5
+@firstparagraphindent insert
+@c %**end of header
+
+@set UPDATED Jun 30 2008
+@set EDITION  1.1
+@set VERSION 1.0.1
+
+@copying
+This file documents the @code{ptrash-@value{VERSION}} command for moving
+files to trash directory under $HOME.
+
+Copyright @copyright{} 2008 2009 Prasad J Pandit
+
+Permission is granted to make and distribute verbatim copies of this manual
+provided the copyright notice and this permission notice are preserved on all
+copies
+@end copying
+
+@dircategory Individual utilities
+@direntry
+* ptrash: (ptrash).                             Move file(s) to ~/.trash.
+@end direntry
+
+@titlepage
+@title ptrash
+@subtitle move file(s) to ~/.trash directory
+@subtitle Edition @value{EDITION}, for ptrash Version @value{VERSION}
+@subtitle @value{UPDATED}
+@author by Prasad J Pandit
+@end titlepage
+
+@contents
+@ifnottex
+@node Top, Overview, (dir), (dir)
+@top ptrash-@value{VERSION}
+@end ifnottex
+@insertcopying
+
+@menu
+* Overview        ::	An introduction to ptrash
+* Invoking ptrash ::	How to use ptrash
+* Problems        ::	Reporting bugs
+@end menu
+
+@node Overview, Invoking ptrash, Top, Top
+@c node-name, next, previous, up
+@chapter Overview
+@section Introduction
+@code{ptrash} is a console based simple utility to move named file(s) to
+~/.trash directory. In case the ~/.trash directory is non-existent,
+@code{ptrash} creates it for you and then moves the file(s) to this directory.
+By default @code{ptrash} runs in non-interactive mode. That means it does not
+ask user if she is sure to move a file to ~/.trash even when the named file
+already exists in ~/.trash and proceeds with overwriting that file.
+
+@section How it evolved
+@code{ptrash} is a console based simple application. I took upon writing this,
+when I deleted(using rm) few files and found myself badly desperate to retrieve
+them back, but just could not do so.
+
+So, I wrote a program named @code{ptrash} which moved regular files from
+current directory to ~/.trash, that's all. Then I thought @code{ptrash} should
+do some more things such as movement of whole directory, restore an already
+moved file from ~/.trash to its original location, etc. And now this version of
+@code{ptrash} does all of these tasks; plus, facilitates moving of block and
+character special device files and fifo files as well.
+
+@node Invoking ptrash, Problems, Overview, Top
+@c node-name, next, previous, up
+@chapter Invoking ptrash
+@code{ptrash} can be invoked by a simple command as
+
+Usage: ptrash [OPTIONS] file-name-1 [file-name-2 ...]
+
+As of now @code{ptrash} supports the following set of options
+
+@table @samp
+@item -d
+@itemx --delete
+delete named file(s) from ~/.trash. Do not use this option with -r or --restore
+option
+@item -i
+Enables an interactive mode of operation; thus letting user to decide if she
+want to overwrite OR delete an existing file or not.
+@item -r
+@itemx --restore
+Restore a file from trash to its original location. Do not use this option
+with -d or --delete option above
+@item -h
+@itemx --help
+shows small help on the console
+@item -v
+@itemx --verbose
+Turn on verbose operation mode
+@item -V
+@itemx --version
+shows version information
+@end table
+
+@section Example:
+@table @samp
+@item $ ptrash readme.txt
+move the file @code{readme.txt} to ~/.trash directory
+@item $ ptrash -v readme.txt install report.doc tar1.tgz
+This moves all the named files to ~/.trash directory with verbose mode of
+operation enabled, that causes ptrash to show file name and progress bar as
+it is moved
+@item $ ptrash -r readme.txt tar1.tgz
+This will cause ptrash to restore files @code{readme.txt} and @code{tar1.tgz} to
+their respective original location.
+@item $ ptrash -d install.txt minutes.txt
+This will delete @code{install.txt} and @code{minutes.txt} from trash
+directory.
+@item $ ptrash -drv todo.txt
+This'll result in an error message, as option -d and -r are not ment to be
+used together.
+@end table
+
+@node Problems, , Invoking ptrash, Top
+@c node-name, next, previous, up
+@chapter Problems
+@section Reporting bugs
+If you think you have found a bug in @code{ptrash-@value{VERSION}}, send an
+email to <pj.pandit AT yahoo.co.in>. While doing so please include
+@code{ptrash-@value{VERSION}} string in the subject line, and precisely describe
+about the behaviour of @code{ptrash-@value{VERSION}}.
+
+@section Note
+@code{ptrash-@value{VERSION}} does not moves symbolic links to/from ~/.trash.
+
+Do not use option -d and -r together.
+@bye

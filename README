@@ -1,0 +1,66 @@
+
+
+
+
+
+
+                                    Ptrash-1.0.1
+
+
+            Hello all,
+
+                 I  am  pleased to release this version 1.0.1 of Ptrash.
+            Ptrash is a small console based utility program.  Ptrash  is
+            intended  to  move  file(s)  to  ~/.trash.  Where,  trash is
+            nothing but a ’~/.trash’ directory under home directory of a
+            user.   Ptrash  facilitates  moving of all types of files to
+            trash, as well as restoring those files  and/or  directories
+            to their original location.
+
+                 I  took  upon  writing Ptrash, when I deleted(using rm)
+            few files and found my self badly desperate to retrieve them
+            back, but just could not do so.
+
+
+            Installation:
+
+            Installing  Ptrash  is  quite  easy and straight forward, do
+            ’cd’ to the directory (ptrash-1.0.1) containing all  sources
+            and follow these steps...
+
+                 $ ./configure
+                 $ make
+                 # make install
+
+            That’s  all, you have Ptrash installed. For more information
+            about usage and general options try...
+
+                 $ ptrash --help
+                 $ man ptrash
+                 $ info ptrash
+
+
+            Problems:
+
+            Please  send  any  bug  reports/problems  to  <pj.pandit  at
+            yahoo.co.in>.  While  doing  so  do  include  "ptrash-1.0.1"
+            string in subject  line  and  also  describe  precisely  the
+            behaviour  of  ptrash.  Sending actual command, which caused
+            that behaviour would be even more helpful while debugging.
+
+            Thank you!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

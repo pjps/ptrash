@@ -1,0 +1,57 @@
+\"
+\"	Prasad J Pandit
+\"
+\"	This is a manuscript of the manual page for a program 'ptrash'
+\"	
+
+\".ll 6i
+\".nr LL 6i
+.TH ptrash 1
+.SH NAME
+ptrash \- move file(s) to ~/.trash directory
+.SH SYNOPSIS
+.TP 5
+\fBptrash\fR [\fIOPTIONS\fR] file-name-1 [file-name-2 ...]
+.SH DESCRIPTION
+.PP
+\fBptrash\fR is a console based simple application. \fBptrash\fR moves the
+named file(s) to trash directory located under the home directory of a user.
+In case if ~/.trash is non-existent, \fBptrash\fR creates it for you and then
+moves the file(s) to this directory. By default, ptrash runs in non-interactive
+mode, which means it does not ask user if she is sure to move the file to
+~/.trash even when the named file already exists in trash and proceeds with
+overwriting that file.
+.SH OPTIONS
+\fBptrash\fR supports the following options
+.TP
+.B \-d \-\-delete
+Delete file(s) from trash
+.TP
+.B \-i
+Enables an interactive moving of files to/from trash. ie. It asks for
+confirmation before over writing OR deleting any existing file.
+.TP
+.B \-r \-\-restore
+Restore a file from trash to it's original location
+
+.TP
+.B \-h \-\-help
+Prints this short usage help
+.TP
+.B \-v \-\-verbose
+Verbose operation mode
+.TP
+.B \-V \-\-version
+Displays the version information
+.SH SEE ALSO
+cp(1) mv(1) rm(1) shred(1)
+.SH BUG(s)
+.PP
+If you think you have found a bug in ptrash, please write to me with the
+ptrash-<version> string in the subject line, explaining precisely about the
+behaviour of ptrash.
+.SH NOTE
+.PP
+ptrash does not facilitate moving of symbolic links to/from ~/.trash.
+.SH AUTHOR
+Prasad J Pandit <\fIpj.pandit at yahoo.co.in\fR>
