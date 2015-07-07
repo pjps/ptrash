@@ -41,7 +41,7 @@
 #endif
 
 #define BUFSZ           100
-#define VERSION         "1.0.1"
+#define VERSION         "1.1"
 
 
 /* displays the help information for move */

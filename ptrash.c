@@ -1,7 +1,7 @@
 /*
  * ptrash.c -- move unwanted files to trash; This file is part of the program
  * 'ptrash'.
- * Copyright (C) 2008 2009 Prasad J Pandit
+ * Copyright (C) 2008 - 2015 Prasad J Pandit
  *
  * 'ptrash' is a free software; you can redistribute it and/or modify it under
  * the terms of GNU General Public Licence as published by Free Software
@@ -38,7 +38,7 @@ void
 usage (void)
 {
     printf ("Usage: %s [OPTIONS] file-name-1 [file-name-2 ...]\n", prog);
-    printf ("\tmove file(s) to ~/.trash directory under $HOME\n");
+    printf ("\tmove file(s) to $XDG_DATA_HOME/.trash directory\n");
 }
 
 
@@ -47,17 +47,17 @@ printh (void)
 {
     usage ();
     printf ("\nOptions: \n");
-    printf ("%-17s %s\n", "  -d --delete", "delete files from ~/.trash");
+    printf ("%-17s %s\n", "  -d --delete", "delete files from trash");
     printf ("%-17s %s", "  -i", "interactive, confirm before over writing");
     printf ("%s\n", " or deleting a file");
-    printf ("%-17s %s", "  -r --restore", "restore a file from ~/.trash to");
-    printf ("%s\n", " it's original location");
+    printf ("%-17s %s", "  -r --restore", "restore a file from trash to");
+    printf ("%s\n", " its original location");
 
     printf ("\n");
     printf ("%-17s %s\n", "  -h --help", "shows this help");
     printf ("%-17s %s\n", "  -v --verbose", "verbose operation mode");
     printf ("%-17s %s\n", "  -V --version", "shows version information");
-    printf ("\nReport bugs to <pj.pandit at yahoo.co.in>\n");
+    printf ("\nReport bugs to <pjp at fedoraproject dot org>\n");
 }
 
 
@@ -141,8 +141,8 @@ create_dir (const char *path)
 
 
 /*
- * build_path: build a path string pointing to the file. Allocates memory, make
- * sure you free it.
+ * build_path: build a path string pointing to the file. Allocates memory,
+ * make sure you free it.
  *
  * dir: absolute path of the base directory
  * file: name of the file
@@ -269,7 +269,7 @@ get_choice (char *file, const char *prompt)
 
 /*
  * update_tdb: add/remove an entry of the file(last moved) to/from ptrash
- * database under ~/.trash directory.
+ * database under trash directory.
  *
  * path: absolute path of the file last moved by move
  */
@@ -418,7 +418,7 @@ init_move (void)
     struct passwd *pw = NULL;
 
     pw = getpwuid (getuid ());
-    trsh = build_path (pw->pw_dir, ".trash");
+    trsh = build_path (pw->pw_dir, ".local/share/.trash");
     tdb  = build_path (trsh, ".trashdb");
     perm = S_IRWXU;
     if ((create_dir (trsh) == -1)
@@ -436,7 +436,7 @@ init_move (void)
 
 /*
  * move: checks the file type and calls the appropriate move_<file type>
- * function to move that file to ~/.trash.
+ * function to move that file to $XDG_DATA_HOME/.trash.
  *
  * file: absolute path of the file to be trashed.
  * stat_buf: pointer pointing to stat structure of file.
@@ -523,8 +523,8 @@ move_reg (char *fpath)
 
 
 /*
- * move_fifo: moves the fifo special file to ~/.trash. Returns 0 on success
- * and -1 in case of an error.
+ * move_fifo: moves the fifo special file to $XDG_DATA_HOME/.trash.
+ * Returns 0 on success and -1 in case of an error.
  *
  * fpath: absolute path of the file to be moved.
  */
@@ -556,7 +556,7 @@ move_fifo (char *fpath)
 
 
 /*
- * move_dir: moves a whole directory to ~/.trash.
+ * move_dir: moves a whole directory to $XDG_DATA_HOME/.trash.
  *
  * dpath: absolute path of the directory to be trashed.
  */
@@ -611,9 +611,9 @@ move_dir (char *dpath)
 
 
 /*
- * move_nod: moves the device special (character|block) file to ~/.trash.
- * Returns 0 on success and -1 in case of an error. User must be root to do
- * this.
+ * move_nod: moves the device special (character|block) file to
+ * $XDG_DATA_HOME/.trash. Returns 0 on success and -1 in case of an error.
+ * User must be root to do this.
  *
  * npath: absolute path of the file to be moved.
  */
@@ -644,8 +644,8 @@ move_nod (char *npath)
 
 
 /*
- * delete: deletes the named file from ~/.trash directory. Returns 0 on
- * success and -1 in case of error.
+ * delete: deletes the named file from $XDG_DATA_HOME/.trash directory.
+ * Returns 0 on success and -1 in case of error.
  *
  * file: name of the file in trash to be deleted.
  * stat_buf: pointer to stat structure of @file.
@@ -682,10 +682,10 @@ delete (char *file, struct stat *stat_buf)
 
 
 /*
- * delete_dir: removes directory from ~/.trash. On success it returns 0, and
- * returns -1 in case of an error.
+ * delete_dir: removes directory from $XDG_DATA_HOME/.trash. On success it
+ * returns 0, and returns -1 in case of an error.
  *
- * dpath: path of the directory to be deleted from ~/.trash
+ * dpath: path of the directory to be deleted from $XDG_DATA_HOME/.trash
  */
 int
 delete_dir (char *dpath)

@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.61)
-AC_INIT([ptrash], [1.0.1], [pj.pandit@yahoo.co.in])
+AC_INIT([ptrash], [1.1], [pjp@fedoraproject.org])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([ptrashdb.h])
 AC_CONFIG_HEADER([config.h])
