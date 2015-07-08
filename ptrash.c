@@ -418,8 +418,8 @@ init_move (void)
     struct passwd *pw = NULL;
 
     pw = getpwuid (getuid ());
-    trsh = build_path (pw->pw_dir, ".local/share/.trash");
-    tdb  = build_path (trsh, ".trashdb");
+    trsh = build_path (pw->pw_dir, ".local/share/Trash/files");
+    tdb  = build_path (trsh, "../info/.trashdb");
     perm = S_IRWXU;
     if ((create_dir (trsh) == -1)
         || (open (tdb, O_CREAT, S_IRUSR|S_IWUSR) < 0))
