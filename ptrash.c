@@ -38,7 +38,7 @@ void
 usage (void)
 {
     printf ("Usage: %s [OPTIONS] file-name-1 [file-name-2 ...]\n", prog);
-    printf ("\tmove file(s) to $XDG_DATA_HOME/.trash directory\n");
+    printf ("\tmove file(s) to $XDG_DATA_HOME/Trash directory\n");
 }
 
 
@@ -211,7 +211,8 @@ open_src_file (char *file)
 
 
 /*
- * open_dst_file: open the destination file under ~/.trash directory.
+ * open_dst_file: open the destination file under '$XDG_DATA_HOME/Trash'
+ * directory.
  *
  * file: absolute path of the file to open or create.
  */
@@ -268,8 +269,8 @@ get_choice (char *file, const char *prompt)
 
 
 /*
- * update_tdb: add/remove an entry of the file(last moved) to/from ptrash
- * database under trash directory.
+ * update_tdb: add/remove an entry of the file(last moved) to/from Trash
+ * database under Trash/info directory.
  *
  * path: absolute path of the file last moved by move
  */
@@ -357,7 +358,6 @@ main (int argc, char *argv[])
         return -1;
 
     n = 0;
-    t_read ();
     while (n < argc)
     {
         char *fnm = NULL;
@@ -379,9 +379,9 @@ main (int argc, char *argv[])
         }
         if (lstat (fnm, &stat_buf) == 0)
         {
-            /* 
-             * If a file is under ~/.trash and restore(-r) is NOT used,
-             * delete it.
+            /*
+             * If a file is under '$XDG_DATA_HOME/Trash' and
+             * restore(-r) is NOT used, delete it.
              */
             char *dnm = strdup (fnm);
 
@@ -401,7 +401,6 @@ main (int argc, char *argv[])
         free (fnm);
         n++;
     }
-    t_write ();
     free (trsh);
     free (tdb);
     umask (omask);
@@ -419,10 +418,9 @@ init_move (void)
 
     pw = getpwuid (getuid ());
     trsh = build_path (pw->pw_dir, ".local/share/Trash/files");
-    tdb  = build_path (trsh, "../info/.trashdb");
+    tdb  = build_path (trsh, "../info/");
     perm = S_IRWXU;
-    if ((create_dir (trsh) == -1)
-        || (open (tdb, O_CREAT, S_IRUSR|S_IWUSR) < 0))
+    if ((create_dir (trsh) == -1) || (create_dir (tdb) == -1))
     {
         warnx ("initialisation error");
         return -1;
@@ -436,7 +434,7 @@ init_move (void)
 
 /*
  * move: checks the file type and calls the appropriate move_<file type>
- * function to move that file to $XDG_DATA_HOME/.trash.
+ * function to move that file to $XDG_DATA_HOME/Trash.
  *
  * file: absolute path of the file to be trashed.
  * stat_buf: pointer pointing to stat structure of file.
@@ -523,7 +521,7 @@ move_reg (char *fpath)
 
 
 /*
- * move_fifo: moves the fifo special file to $XDG_DATA_HOME/.trash.
+ * move_fifo: moves the fifo special file to $XDG_DATA_HOME/Trash.
  * Returns 0 on success and -1 in case of an error.
  *
  * fpath: absolute path of the file to be moved.
@@ -556,7 +554,7 @@ move_fifo (char *fpath)
 
 
 /*
- * move_dir: moves a whole directory to $XDG_DATA_HOME/.trash.
+ * move_dir: moves a whole directory to $XDG_DATA_HOME/Trash.
  *
  * dpath: absolute path of the directory to be trashed.
  */
@@ -612,7 +610,7 @@ move_dir (char *dpath)
 
 /*
  * move_nod: moves the device special (character|block) file to
- * $XDG_DATA_HOME/.trash. Returns 0 on success and -1 in case of an error.
+ * $XDG_DATA_HOME/Trash. Returns 0 on success and -1 in case of an error.
  * User must be root to do this.
  *
  * npath: absolute path of the file to be moved.
@@ -644,7 +642,7 @@ move_nod (char *npath)
 
 
 /*
- * delete: deletes the named file from $XDG_DATA_HOME/.trash directory.
+ * delete: deletes the named file from $XDG_DATA_HOME/Trash directory.
  * Returns 0 on success and -1 in case of error.
  *
  * file: name of the file in trash to be deleted.
@@ -682,10 +680,10 @@ delete (char *file, struct stat *stat_buf)
 
 
 /*
- * delete_dir: removes directory from $XDG_DATA_HOME/.trash. On success it
+ * delete_dir: removes directory from $XDG_DATA_HOME/Trash. On success it
  * returns 0, and returns -1 in case of an error.
  *
- * dpath: path of the directory to be deleted from $XDG_DATA_HOME/.trash
+ * dpath: path of the directory to be deleted from $XDG_DATA_HOME/Trash
  */
 int
 delete_dir (char *dpath)
