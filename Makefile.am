@@ -14,7 +14,7 @@
 AM_CFLAGS = -D_GNU_SOURCE -Wall
 
 bin_PROGRAMS = ptrash
-ptrash_SOURCES = ptrash.c ptrashdb.c ptrash.h ptrashdb.h
+ptrash_SOURCES = ptrash.c trashdb.c ptrash.h ptrashdb.h
 
 # man1_MANS = ptrash.1
 info_TEXINFOS = ptrash.texi
