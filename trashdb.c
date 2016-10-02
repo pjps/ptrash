@@ -1,3 +1,22 @@
+/*
+ * trashdb.c -- move unwanted files to trash; This file is part of the program
+ * 'ptrash'.
+ * Copyright (C) 2016 Prasad J Pandit
+ *
+ * 'ptrash' is a free software; you can redistribute it and/or modify it under
+ * the terms of GNU General Public Licence as published by Free Software
+ * Foundation; either version 2 of the licence, or (at your option) any later
+ * version.
+ *
+ * 'ptrash' is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public Licence for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public Licence along
+ * with 'ptrash'; if not, write to Free Software Foundation, Inc., 51 Franklin
+ * St, Fifth Floor, Boston, MA 02110-1301 USA
+ */
 
 #include <ptrash.h>
 #include <time.h>
