@@ -1,7 +1,7 @@
 /*
  * ptrash.c -- move unwanted files to trash; This file is part of the program
  * 'ptrash'.
- * Copyright (C) 2008 - 2015 Prasad J Pandit
+ * Copyright (C) 2008 - 2016 Prasad J Pandit
  *
  * 'ptrash' is a free software; you can redistribute it and/or modify it under
  * the terms of GNU General Public Licence as published by Free Software
@@ -413,13 +413,27 @@ main (int argc, char *argv[])
 int
 init_move (void)
 {
+    char *t = NULL;
     short msk = 0000;
     struct passwd *pw = NULL;
 
-    pw = getpwuid (getuid ());
-    trsh = build_path (pw->pw_dir, ".local/share/Trash/files");
-    tdb  = build_path (trsh, "../info/");
+    if ((t = getenv ("XDG_DATA_HOME")))
+        trsh = t;
+    else
+    {
+        pw = getpwuid (getuid ());
+        trsh = build_path (pw->pw_dir, ".local/share");
+    }
+
+    trsh = build_path (trsh, "Trash");
     perm = S_IRWXU;
+    if (create_dir (trsh) == -1)
+    {
+        warnx ("initialisation error");
+        return -1;
+    }
+    trsh = build_path (trsh, "files");
+    tdb  = build_path (trsh, "../info/");
     if ((create_dir (trsh) == -1) || (create_dir (tdb) == -1))
     {
         warnx ("initialisation error");
