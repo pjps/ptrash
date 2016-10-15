@@ -89,6 +89,7 @@ char *
 t_search (const char *path)
 {
     int fd;
+    char *ret = NULL;
     char buf[1024], *fp = NULL, *ln = NULL;
 
     assert (path != NULL);
@@ -100,19 +101,23 @@ t_search (const char *path)
         warn ("could not open file `%s'", fp);
 
     ln = read_line (fd);
-    if (!ln || strncmp(ln, "[Trash Info]", sizeof ("[Trash Info]")))
-        warn ("invalid Trash Info entry `%s'", fp);
+    if (strncmp (ln, "[Trash Info]", sizeof ("[Trash Info]")))
+        warnx ("invalid Trash Info entry `%s'", fp);
     free (ln);
 
     ln = read_line (fd);
-    if (!ln || strncmp(ln, "Path=", sizeof ("Path=")))
-        warn ("invalid Path entry `%s'", fp);
+    if (strncmp (ln, "Path=", sizeof ("Path")))
+        warnx ("invalid Path entry `%s'", fp);
+    ret = strdup (&ln[5]);
+    free (ln);
+
+    ln = read_line (fd);
+    if (strncmp (ln, "DeletionDate=", sizeof ("DeletionDate")))
+        warnx ("invalid Date entry `%s'", fp);
+    free (ln);
 
     free (fp);
     close (fd);
 
-    fp = strdup (&ln[5]);
-    free (ln);
-
-    return fp;
+    return ret;
 }
